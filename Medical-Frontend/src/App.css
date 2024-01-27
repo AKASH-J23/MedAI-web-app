@@ -1,0 +1,26 @@
+/* .background{
+    background-image: url("./assets/bg.png") no-repeat center center fixed;
+    background-size: cover;
+} */
+*{
+    background-color:#BFF3D4;
+    /* margin-top: 70px; */
+    /* fontSize: 50px; */
+    /* background-size: cover; */
+    /* background-repeat: no-repeat; */
+}
+
+.spinner-parent{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.704);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+  }
+
+/* #BFF3D4; */

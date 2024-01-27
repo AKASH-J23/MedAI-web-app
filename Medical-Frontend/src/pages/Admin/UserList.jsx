@@ -31,7 +31,9 @@ function UsersList() {
 
   return (
     <div className="container mx-auto my-8">
-      <h1 className="text-3xl font-semibold flex justify-center mb-4">Users List</h1>
+      <h1 className="text-3xl font-semibold flex justify-center mb-4">
+        Users List
+      </h1>
       <hr className="my-4" />
 
       <div className="overflow-x-auto px-2">
@@ -48,7 +50,9 @@ function UsersList() {
             {users.map((record) => (
               <tr key={record._id}>
                 <td className="py-2 px-4 border border-black">{record.name}</td>
-                <td className="py-2 px-4 border border-black">{record.email}</td>
+                <td className="py-2 px-4 border border-black">
+                  {record.email}
+                </td>
                 <td className="py-2 px-4 border border-black">
                   {moment(record.createdAt).format("DD-MM-YYYY")}
                 </td>

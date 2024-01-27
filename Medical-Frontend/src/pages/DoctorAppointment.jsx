@@ -32,7 +32,7 @@ function DoctorAppointment() {
       dispatch(showLoading());
       const resposne = await axios.post(
         "http://localhost:3000/api/doc/change-appointment-status",
-        { appointmentId : record._id, status: status },
+        { appointmentId: record._id, status: status },
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -55,10 +55,11 @@ function DoctorAppointment() {
     getAppointmentsData();
   }, []);
 
-  
   return (
     <div>
-      <h1 className="text-2xl flex justify-center font-bold my-4">Appointments</h1>
+      <h1 className="text-2xl flex justify-center font-bold my-4">
+        Appointments
+      </h1>
       {/* <hr className="border-gray-500 rounded border-2 mb-4" /> */}
 
       <div className="overflow-x-auto p-2">
@@ -76,26 +77,38 @@ function DoctorAppointment() {
           <tbody>
             {appointments.map((record) => (
               <tr key={record._id} className="hover:bg-gray-100">
-                <td className="py-2 px-4 text-center border border-black">{record._id}</td>
-                <td className="py-2 px-4 text-center border border-black">{record.userInfo.fname}</td>
-                <td className="py-2 px-4 text-center border border-black">{record.doctorInfo.email}</td>
+                <td className="py-2 px-4 text-center border border-black">
+                  {record._id}
+                </td>
+                <td className="py-2 px-4 text-center border border-black">
+                  {record.userInfo.fname}
+                </td>
+                <td className="py-2 px-4 text-center border border-black">
+                  {record.doctorInfo.email}
+                </td>
                 <td className="py-2 px-4 text-center border border-black">
                   {moment(record.date).format("DD-MM-YYYY")}{" "}
                   {moment(record.time).format("HH:mm")}
                 </td>
-                <td className="py-2 px-4 text-center border border-black">{record.status}</td>
+                <td className="py-2 px-4 text-center border border-black">
+                  {record.status}
+                </td>
                 <td className="py-2 px-2 text-center border border-black">
                   {record.status === "pending" && (
                     <div className="flex justify-evenly">
                       <button
                         className="bg-gray-200 px-1 text-green rounded-lg hover:bg-green-400 border border-black"
-                        onClick={() => changeAppointmentStatus(record, "approved")}
+                        onClick={() =>
+                          changeAppointmentStatus(record, "approved")
+                        }
                       >
                         Approve
                       </button>
                       <button
                         className="bg-gray-200 px-1 text-green rounded-lg hover:bg-red-500 border border-black"
-                        onClick={() => changeAppointmentStatus(record, "rejected")}
+                        onClick={() =>
+                          changeAppointmentStatus(record, "rejected")
+                        }
                       >
                         Reject
                       </button>

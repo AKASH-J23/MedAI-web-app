@@ -18,10 +18,10 @@ import Approveddocs from "./pages/Approved.docs";
 import BookAppointment from "./pages/BookAppointment";
 import Appointments from "./pages/Appointments";
 import DoctorAppointment from "./pages/DoctorAppointment";
-import { SpinnerCircular } from 'spinners-react';
+import { SpinnerCircular } from "spinners-react";
 
 function App() {
-  const {loading} = useSelector((state) => state.alerts);
+  const { loading } = useSelector((state) => state.alerts);
   return (
     <div className="outer">
       {loading && (
@@ -32,7 +32,7 @@ function App() {
       <Navbar />
       {/* <BrowserRouter> */}
       <Routes>
-      <Route
+        <Route
           path="/approved-doctors"
           exact
           element={
@@ -67,7 +67,7 @@ function App() {
             </ProtectedRoute>
           }
         />
-      <Route
+        <Route
           path="/admin/doctorslist"
           element={
             <ProtectedRoute>

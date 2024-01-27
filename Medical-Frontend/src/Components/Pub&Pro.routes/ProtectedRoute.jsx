@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setUser } from "../../redux/userSlice";
 import { showLoading, hideLoading } from "../../redux/alertsSlice";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function userProtectedRoute(props) {
   const { user } = useSelector((state) => state.user);
@@ -14,7 +14,7 @@ function userProtectedRoute(props) {
   const navigate = useNavigate();
   const getUser = async () => {
     try {
-      dispatch(showLoading())
+      dispatch(showLoading());
       const response = await axios.post(
         "http://localhost:3000/api/user/get-user-info-by-id",
         { token: localStorage.getItem("token") },
@@ -28,20 +28,20 @@ function userProtectedRoute(props) {
       if (response.data.success) {
         dispatch(setUser(response.data.data));
         // console.log(response.data.data)
-        toast.success(response.data.message)
+        toast.success(response.data.message);
       } else {
-        localStorage.clear()
+        localStorage.clear();
         navigate("/login");
       }
     } catch (error) {
       dispatch(hideLoading());
-      localStorage.clear()
+      localStorage.clear();
       navigate("/login");
     }
   };
 
   useEffect(() => {
-      getUser();
+    getUser();
   }, []);
 
   if (localStorage.getItem("token")) {

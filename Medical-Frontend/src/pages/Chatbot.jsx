@@ -1,10 +1,8 @@
-import React from 'react'
-import Chatbox from '../Components/Chatbox/chatbox'
+import React from "react";
+import Chatbox from "../Components/Chatbox/chatbox";
 
 function Chatbot() {
-  return (
-    <Chatbox/>
-  )
+  return <Chatbox />;
 }
 
-export default Chatbot
+export default Chatbot;

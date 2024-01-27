@@ -194,7 +194,7 @@ router.post("/book-appointment", AuthMiddleware, async (req, res) => {
     const user = await User.findOne({ _id: req.body.doctorInfo.userId });
     user.unseenNotifications.push({
       type: "new-appointment-request",
-      message: `A new appointment request has been made by ${req.body.userInfo.name}`,
+      message: `A new appointment request has been made by ${req.body.userInfo.fname}`,
       onClickPath: "/doctor/appointments",
     });
     await user.save();

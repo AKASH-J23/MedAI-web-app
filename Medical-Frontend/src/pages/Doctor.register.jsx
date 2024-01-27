@@ -4,19 +4,19 @@ import moment from "moment";
 import { useNavigate } from "react-router-dom";
 import { showLoading, hideLoading } from "../redux/alertsSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const DoctorRegister = ({initivalValues}) => {
+const DoctorRegister = ({ initivalValues }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {user} = useSelector((state) => state.user)
+  const { user } = useSelector((state) => state.user);
   const [formData, setFormData] = useState({
     fname: "",
     lname: "",
     speciality: "",
     consultation_fee: 0,
-    availability: ["",""],
+    availability: ["", ""],
     contact_no: 0,
     email: "",
   });
@@ -48,43 +48,45 @@ const DoctorRegister = ({initivalValues}) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-
-  //   // if (formData.password !== formData.confpassword) {
-  //   //   setPasswordMatchError(true);
-  //   //   return;
-  //   // }
-  //   // setPasswordMatchError(false);
-  //   // const { confpassword, ...datawithoutconfpassword } = formData;
+    //   // if (formData.password !== formData.confpassword) {
+    //   //   setPasswordMatchError(true);
+    //   //   return;
+    //   // }
+    //   // setPasswordMatchError(false);
+    //   // const { confpassword, ...datawithoutconfpassword } = formData;
 
     try {
       dispatch(showLoading());
-      const response = await axios.post("http://localhost:3000/api/user/apply-doctor-account",
-      {
-        ...formData,
-        userId: user._id,
-        timings: [moment(formData.availability[0]).format("HH:mm"),
-        moment(formData.availability[1]).format("HH:mm"),
-      ],
-      },{
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+      const response = await axios.post(
+        "http://localhost:3000/api/user/apply-doctor-account",
+        {
+          ...formData,
+          userId: user._id,
+          timings: [
+            moment(formData.availability[0]).format("HH:mm"),
+            moment(formData.availability[1]).format("HH:mm"),
+          ],
         },
-      }
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
-      dispatch(hideLoading())
+      dispatch(hideLoading());
       if (response.data.success === true) {
         // console.log("register success", response.data.message);
         // toast.success(response.data.message)
-        toast.success("Doctor account applied succesfully !")
-        navigate('/login');
+        toast.success("Doctor account applied succesfully !");
+        navigate("/login");
       } else {
         // console.log("register failed", response.data.message);
-        toast.error("Doctor request failed !")
+        toast.error("Doctor request failed !");
       }
     } catch (err) {
-      dispatch(showLoading())
+      dispatch(showLoading());
       // console.log("error", err.message);
-      toast.error("Something Went Wrong")
+      toast.error("Something Went Wrong");
     }
 
     console.log(formData);
@@ -270,9 +272,9 @@ const DoctorRegister = ({initivalValues}) => {
             <p className="bg-white text-red-500 text-xs italic">
               Passwords do not match.
             </p>
-          )}*/ }
-        </div> 
-        
+          )}*/}
+        </div>
+
         <div className="bg-white flex items-center justify-center">
           <button
             className="bg-green-900 hover:bg-green-700 text-white font-bold py-2 px-4 rounded "
@@ -285,7 +287,6 @@ const DoctorRegister = ({initivalValues}) => {
       <p className="text-center text-gray-500 text-xs">
         &copy;2024 Alpha Developers. All rights reserved.
       </p>
-      
     </div>
   );
 };

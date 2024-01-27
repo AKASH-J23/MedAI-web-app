@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { hideLoading, showLoading} from "../redux/alertsSlice";
+import { hideLoading, showLoading } from "../redux/alertsSlice";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Patientregister = () => {
   const dispatch = useDispatch();
@@ -40,25 +40,25 @@ const Patientregister = () => {
     const { confpassword, ...dataWithoutConfPassword } = formData;
 
     try {
-      dispatch(showLoading())
+      dispatch(showLoading());
       const response = await axios.post(
         "http://localhost:3000/api/user/pat-register",
         dataWithoutConfPassword
       );
-      dispatch(hideLoading())
+      dispatch(hideLoading());
       if (response.data.success === true) {
         // console.log(response.data.message);
-        toast.success("User Regostration Successfull")
+        toast.success("User Regostration Successfull");
         // toast.success(response.data.message)
         navigate("/login");
       } else {
         // console.log(response.data.message);
-        toast.error(response.data.message)
+        toast.error(response.data.message);
       }
     } catch (err) {
-      dispatch(hideLoading())
+      dispatch(hideLoading());
       // console.log("Something Went Wrong");
-      toast.error("Something Went Wrong")
+      toast.error("Something Went Wrong");
     }
   };
 

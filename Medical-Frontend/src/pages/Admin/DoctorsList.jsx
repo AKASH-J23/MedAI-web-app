@@ -12,11 +12,14 @@ function DoctorsList() {
   const getDoctorsData = async () => {
     try {
       dispatch(showLoading());
-      const response = await axios.get("http://localhost:3000/api/admin/get-all-doctors", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const response = await axios.get(
+        "http://localhost:3000/api/admin/get-all-doctors",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       dispatch(hideLoading());
       if (response.data.success) {
         setDoctors(response.data.data);
@@ -59,7 +62,9 @@ function DoctorsList() {
 
   return (
     <div className="container mx-auto my-8 ">
-      <h1 className="text-3xl font-semibold justify-center flex mb-4">Doctors List</h1>
+      <h1 className="text-3xl font-semibold justify-center flex mb-4">
+        Doctors List
+      </h1>
       <hr className="my-4 " />
 
       <div className="overflow-x-auto px-2">
@@ -79,11 +84,15 @@ function DoctorsList() {
                 <td className="py-2 px-4 border border-black">
                   {record.fname} {record.lname}
                 </td>
-                <td className="py-2 px-4 border border-black">{record.contact_no}</td>
+                <td className="py-2 px-4 border border-black">
+                  {record.contact_no}
+                </td>
                 <td className="py-2 px-4 border border-black">
                   {moment(record.createdAt).format("DD-MM-YYYY")}
                 </td>
-                <td className="py-2 px-4 border border-black">{record.status}</td>
+                <td className="py-2 px-4 border border-black">
+                  {record.status}
+                </td>
                 <td className="py-2 px-4 border border-black">
                   {record.status === "pending" && (
                     <button

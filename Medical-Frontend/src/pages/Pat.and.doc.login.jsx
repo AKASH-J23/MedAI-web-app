@@ -1,12 +1,12 @@
 import React, { useState, useRef } from "react";
 // import Webcam from 'react-webcam/'
 import axios from "axios";
-import {Link} from "react-router-dom"
+import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/alertsSlice";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -28,25 +28,28 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-      try {
-        dispatch(showLoading())
-        const response = await axios.post("http://localhost:3000/api/user/pat-login", formData);
-        dispatch(hideLoading())
-        if (response.data.success) {
-          // console.log(response.data.message);
-          localStorage.setItem("token", response.data.data);
-          navigate("/")
-          toast.success(response.data.message)
-        } else {
-          // console.log(response.data.message);
-          toast.error(response.data.message)
-        }
-      } catch (error) {
-        dispatch(hideLoading())
-        // console.log(error);
-        toast.error("Something Went Wrong !")
+    try {
+      dispatch(showLoading());
+      const response = await axios.post(
+        "http://localhost:3000/api/user/pat-login",
+        formData
+      );
+      dispatch(hideLoading());
+      if (response.data.success) {
+        // console.log(response.data.message);
+        localStorage.setItem("token", response.data.data);
+        navigate("/");
+        toast.success(response.data.message);
+      } else {
+        // console.log(response.data.message);
+        toast.error(response.data.message);
       }
-  }
+    } catch (error) {
+      dispatch(hideLoading());
+      // console.log(error);
+      toast.error("Something Went Wrong !");
+    }
+  };
 
   // const webcamRef = useRef(null);
   // const [capturedImage, setCapturedImage] = useState(null);
@@ -208,9 +211,13 @@ const Login = () => {
           </button>
         </div>
         <div className="bg-white mt-2 flex items-center justify-center">
-        <Link to="/patient-register" className="bg-white text-green-700 hover:text-black font-sm">New user ?</Link>
+          <Link
+            to="/patient-register"
+            className="bg-white text-green-700 hover:text-black font-sm"
+          >
+            New user ?
+          </Link>
         </div>
-        
       </form>
       <p className="text-center text-gray-500 text-xs">
         &copy;2024 Alpha Developers. All rights reserved.

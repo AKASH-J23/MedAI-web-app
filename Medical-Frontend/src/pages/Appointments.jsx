@@ -11,11 +11,14 @@ function Appointments() {
   const getAppointmentsData = async () => {
     try {
       dispatch(showLoading());
-      const resposne = await axios.get("http://localhost:3000/api/user/get-appointments-by-user-id", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const resposne = await axios.get(
+        "http://localhost:3000/api/user/get-appointments-by-user-id",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       dispatch(hideLoading());
       if (resposne.data.success) {
         setAppointments(resposne.data.data);
@@ -43,7 +46,7 @@ function Appointments() {
   //     dataIndex: "phoneNumber",
   //     render: (text, record) => (
   //       <span>
-  //         {record.doctorInfo.contact_no} 
+  //         {record.doctorInfo.contact_no}
   //       </span>
   //     ),
   //   },
@@ -63,7 +66,9 @@ function Appointments() {
   // ];
 
   const formatDateAndTime = (date, time) => {
-    return `${moment(date).format("DD-MM-YYYY")} ${moment(time).format("HH:mm")}`;
+    return `${moment(date).format("DD-MM-YYYY")} ${moment(time).format(
+      "HH:mm"
+    )}`;
   };
 
   useEffect(() => {
@@ -72,7 +77,9 @@ function Appointments() {
 
   return (
     <div>
-      <div className="text-xl font-bold flex justify-center my-2">Appointments</div>
+      <div className="text-xl font-bold flex justify-center my-2">
+        Appointments
+      </div>
       {/* <hr className="border-gray-500 rounded border-2" /> */}
 
       <div className="overflow-x-auto p-2">
@@ -91,9 +98,15 @@ function Appointments() {
               <tr key={record._id} className="hover:bg-gray-100">
                 <td className="py-2 px-4 border border-black">{record._id}</td>
                 <td className="py-2 px-4 border border-black">{`${record.doctorInfo.fname} ${record.doctorInfo.lname}`}</td>
-                <td className="py-2 px-4 border border-black">{record.doctorInfo.contact_no}</td>
-                <td className="py-2 px-4 border border-black">{formatDateAndTime(record.date, record.time)}</td>
-                <td className="py-2 px-4 border border-black">{record.status}</td>
+                <td className="py-2 px-4 border border-black">
+                  {record.doctorInfo.contact_no}
+                </td>
+                <td className="py-2 px-4 border border-black">
+                  {formatDateAndTime(record.date, record.time)}
+                </td>
+                <td className="py-2 px-4 border border-black">
+                  {record.status}
+                </td>
               </tr>
             ))}
           </tbody>

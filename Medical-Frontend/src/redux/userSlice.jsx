@@ -7,16 +7,16 @@ export const userSlice = createSlice({
     isLoggedIn: false,
   },
   reducers: {
-    setUser: (state , action) => {
+    setUser: (state, action) => {
       state.user = action.payload;
-      state.isLoggedIn = !!action.payload
+      state.isLoggedIn = !!action.payload;
     },
     logout: (state) => {
       state.user = null;
       state.isLoggedIn = false;
-      localStorage.removeItem('token');
-    }
+      localStorage.removeItem("token");
+    },
   },
 });
 
-export const { setUser , logout } = userSlice.actions;
+export const { setUser, logout } = userSlice.actions;

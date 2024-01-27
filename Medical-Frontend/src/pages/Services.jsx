@@ -41,6 +41,7 @@ const Services = () => {
             title="Your Appointments"
             content="View and manage your appointments"
             button="Click here"
+            route="/doctor/appointments"
           />
         )}
 
@@ -49,7 +50,7 @@ const Services = () => {
           alt="Diabetes prediction page"
           title="Diabetes prediction"
           content="Diabetes prediction page"
-          button="CLick here"
+          button="Click here"
         />
 
         <Servicecard
@@ -57,7 +58,7 @@ const Services = () => {
           alt="Heart Disease prediction page"
           title="Heart prediction"
           content="Heart prediction page"
-          button="CLick here"
+          button="Click here"
         />
 
         <Servicecard
@@ -65,7 +66,7 @@ const Services = () => {
           alt="Stroke prediction page"
           title="Stroke Risk prediction"
           content="Stroke risk prediction page"
-          button="CLick here"
+          button="Click here"
         />
 
         {!isUserDoctor && (

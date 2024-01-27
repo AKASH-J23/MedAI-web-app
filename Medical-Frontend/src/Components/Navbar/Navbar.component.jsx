@@ -8,6 +8,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
   const isLoggedIn = useSelector((state) => state.user.isLoggedIn)
+  const isDoctor = user?.isDoctor;
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -21,12 +22,17 @@ const Navbar = () => {
                 <img src={logo} alt="Logo" className='h-8'/>
         </div>
         <div className="bg-gray-100 flex items-center justify-center gap-10">
-            <Link to={'/'} className="bg-gray-100 text-black text-lg font-semibold flex items-center hover:text-green-900 hover:underline cursor-pointer ">Home
+        <Link to={'/Notifications'} className="bg-gray-100 text-black text-lg font-semibold flex items-center hover:text-green-900 hover:underline cursor-pointer ">Notifications
             </Link>
             <Link to={'/services'} className="bg-gray-100 text-black text-lg font-semibold flex items-center hover:text-green-900 hover:underline cursor-pointer ">Services
             </Link>
-            <Link to={'/Notifications'} className="bg-gray-100 text-black text-lg font-semibold flex items-center hover:text-green-900 hover:underline cursor-pointer ">Notifications
-            </Link>
+            {isDoctor ? (
+          // Link for doctors
+          <Link to={'/doctor/appointments'} className="bg-gray-100 text-black text-lg font-semibold flex items-center hover:text-green-900 hover:underline cursor-pointer">My Appointments</Link>
+        ) : (
+          // Link for regular users
+          <Link to={'/appointments'} className="bg-gray-100 text-black text-lg font-semibold flex items-center hover:text-green-900 hover:underline cursor-pointer">My Appointments</Link>
+        )}
         </div>
         <div className="bg-gray-100 flex items-center justify-center gap-3">
         {isLoggedIn ? (

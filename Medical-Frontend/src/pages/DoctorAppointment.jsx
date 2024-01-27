@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/alertsSlice";
 import axios from "axios";
-import { Table } from "antd";
 import moment from "moment";
 
 function DoctorAppointment() {
@@ -51,69 +50,64 @@ function DoctorAppointment() {
       dispatch(hideLoading());
     }
   };
-  const columns = [
-    {
-      title: "Id",
-      dataIndex: "_id",
-    },
-    {
-      title: "Patient",
-      dataIndex: "name",
-      render: (text, record) => <span>{record.userInfo.fname}</span>,
-    },
-    {
-      title: "Email",
-      dataIndex: "email",
-      render: (text, record) => <span>{record.doctorInfo.email}</span>,
-    },
-    {
-      title: "Date & Time",
-      dataIndex: "createdAt",
-      render: (text, record) => (
-        <span>
-          {moment(record.date).format("DD-MM-YYYY")}{" "}
-          {moment(record.time).format("HH:mm")}
-        </span>
-      ),
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-    },
-    {
-      title: "Actions",
-      dataIndex: "actions",
-      render: (text, record) => (
-        <div className="flex">
-          {record.status === "pending" && (
-            <div className="flex">
-              <h1
-                className="anchor px-2"
-                onClick={() => changeAppointmentStatus(record, "approved")}
-              >
-                Approve
-              </h1>
-              <h1
-                className="anchor"
-                onClick={() => changeAppointmentStatus(record, "rejected")}
-              >
-                Reject
-              </h1>
-            </div>
-          )}
-        </div>
-      ),
-    },
-  ];
+
   useEffect(() => {
     getAppointmentsData();
   }, []);
+
+  
   return (
     <div>
-      <h1 className="page-header">Appointments</h1>
-      <hr />
-      <Table columns={columns} dataSource={appointments} />
+      <h1 className="text-2xl flex justify-center font-bold my-4">Appointments</h1>
+      {/* <hr className="border-gray-500 rounded border-2 mb-4" /> */}
+
+      <div className="overflow-x-auto p-2">
+        <table className="min-w-full bg-black border border-black">
+          <thead>
+            <tr>
+              <th className="py-2 px-4 border border-black">Id</th>
+              <th className="py-2 px-4 border border-black">Patient</th>
+              <th className="py-2 px-4 border border-black">Email</th>
+              <th className="py-2 px-4 border border-black">Date & Time</th>
+              <th className="py-2 px-4 border border-black">Status</th>
+              <th className="py-2 px-4 border border-black">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {appointments.map((record) => (
+              <tr key={record._id} className="hover:bg-gray-100">
+                <td className="py-2 px-4 text-center border border-black">{record._id}</td>
+                <td className="py-2 px-4 text-center border border-black">{record.userInfo.fname}</td>
+                <td className="py-2 px-4 text-center border border-black">{record.doctorInfo.email}</td>
+                <td className="py-2 px-4 text-center border border-black">
+                  {moment(record.date).format("DD-MM-YYYY")}{" "}
+                  {moment(record.time).format("HH:mm")}
+                </td>
+                <td className="py-2 px-4 text-center border border-black">{record.status}</td>
+                <td className="py-2 px-2 text-center border border-black">
+                  {record.status === "pending" && (
+                    <div className="flex justify-evenly">
+                      <button
+                        className="bg-gray-200 px-1 text-green rounded-lg hover:bg-green-400 border border-black"
+                        onClick={() => changeAppointmentStatus(record, "approved")}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="bg-gray-200 px-1 text-green rounded-lg hover:bg-red-500 border border-black"
+                        onClick={() => changeAppointmentStatus(record, "rejected")}
+                      >
+                        Reject
+                      </button>
+                    </div>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
+    </div>
   );
 }
 

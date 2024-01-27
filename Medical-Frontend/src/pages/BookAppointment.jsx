@@ -3,7 +3,6 @@ import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideLoading, showLoading } from '../redux/alertsSlice';
-import moment from 'moment';
 import { DatePicker, TimePicker } from 'antd';
 // import TimePicker from "react-time-picker"
 // import DatePicker from "react-datepicker";

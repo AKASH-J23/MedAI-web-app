@@ -23,11 +23,11 @@ import { SpinnerCircular } from "spinners-react";
 function App() {
   const { loading } = useSelector((state) => state.alerts);
   return (
-    <div className="outer">
+    <div>
       {loading && (
-        <div className="spinner-parent">
+        <div class="flex justify-center items-center bg-black bg-opacity-70 fixed top-0 left-0 w-full h-full z-50">
           <SpinnerCircular />
-        </div>
+        </div> 
       )}
       <Navbar />
       {/* <BrowserRouter> */}

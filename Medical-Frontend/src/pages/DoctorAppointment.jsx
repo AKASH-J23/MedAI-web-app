@@ -3,6 +3,8 @@ import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/alertsSlice";
 import axios from "axios";
 import moment from "moment";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function DoctorAppointment() {
   const [appointments, setAppointments] = useState([]);
@@ -41,8 +43,8 @@ function DoctorAppointment() {
       );
       dispatch(hideLoading());
       if (resposne.data.success) {
-        // toast.success(resposne.data.message);
-        console.log(resposne.data.message);
+        toast.success(resposne.data.message);
+        // console.log(resposne.data.message);
         getAppointmentsData();
       }
     } catch (error) {
@@ -57,6 +59,7 @@ function DoctorAppointment() {
 
   return (
     <div>
+      <ToastContainer className="bg-gray-100"/>
       <h1 className="text-2xl flex justify-center font-bold my-4">
         Appointments
       </h1>

@@ -4,8 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { hideLoading, showLoading } from "../redux/alertsSlice";
 import { DatePicker, TimePicker } from "antd";
-// import TimePicker from "react-time-picker"
-// import DatePicker from "react-datepicker";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "react-datepicker/dist/react-datepicker.css";
 
 function BookAppointment() {
@@ -73,16 +73,16 @@ function BookAppointment() {
       );
       dispatch(hideLoading());
       if (response.data.success) {
-        //   toast.success(response.data.message);
-        console.log(response.data.message);
+          toast.success(response.data.message);
+        // console.log(response.data.message);
         setIsAvailable(true);
       } else {
-        //   toast.error(response.data.message);
-        console.log(response.data.message);
+          toast.error(response.data.message);
+        // console.log(response.data.message);
       }
     } catch (error) {
-      // toast.error("Error booking appointment");
-      console.log(error);
+      toast.error("Error booking appointment");
+      // console.log(error);
       dispatch(hideLoading());
     }
   };
@@ -109,13 +109,13 @@ function BookAppointment() {
 
       dispatch(hideLoading());
       if (response.data.success) {
-        //   toast.success(response.data.message);
-        console.log(response.data.message);
+          toast.success(response.data.message);
+        // console.log(response.data.message);
         navigate("/appointments");
       }
     } catch (error) {
-      // toast.error("Error booking appointment");
-      console.log(error);
+      toast.error("Error booking appointment");
+      // console.log(error);
       dispatch(hideLoading());
     }
   };
@@ -126,6 +126,7 @@ function BookAppointment() {
 
   return (
     <div>
+      <ToastContainer className="bg-gray-100"/>
       {doctor && (
         <div className="flex justify-center items-center mt-2">
           <div className="max-w-md p-4 bg-white shadow-lg rounded-md">

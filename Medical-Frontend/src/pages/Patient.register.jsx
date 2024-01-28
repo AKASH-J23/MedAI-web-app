@@ -48,7 +48,7 @@ const Patientregister = () => {
       dispatch(hideLoading());
       if (response.data.success === true) {
         // console.log(response.data.message);
-        toast.success("User Regostration Successfull");
+        toast.success("User Registration Successfull");
         // toast.success(response.data.message)
         navigate("/login");
       } else {
@@ -63,6 +63,7 @@ const Patientregister = () => {
   };
 
   return (
+    <div><ToastContainer className="bg-gray-100"/>
     <div className="w-full mx-auto my-8 max-w-md">
       <form
         onSubmit={handleSubmit}
@@ -199,7 +200,7 @@ const Patientregister = () => {
       <p className="text-center text-gray-500 text-xs">
         &copy;2024 Alpha Developers. All rights reserved.
       </p>
-      <ToastContainer />
+    </div>
     </div>
   );
 };

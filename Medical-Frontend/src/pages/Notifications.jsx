@@ -116,7 +116,7 @@ function Notifications() {
           ))}
         </Tabs.TabPane>
       </Tabs>
-      <ToastContainer />
+      <ToastContainer className="bg-gray-100"/>
     </div>
   );
 }

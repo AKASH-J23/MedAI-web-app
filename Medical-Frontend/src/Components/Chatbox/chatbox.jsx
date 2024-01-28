@@ -2,33 +2,37 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams } from "react-router-dom";
 import "../Chatbox/chatbox.css";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Chatbox = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
-  const [user, setUser] = useState("");
+  // const [user, setUser] = useState("");
   const [listening, setListening] = useState(false); // Track listening state
   const chatboxRef = useRef(null);
   const recognition = useRef(
     window.SpeechRecognition || window.webkitSpeechRecognition
   );
   const synthesis = useRef(window.speechSynthesis);
+  const { user } = useSelector((state) => state.user);
 
   const { parameter } = useParams();
 
   // Check if speech recognition is available
   const isSpeechRecognitionAvailable = recognition.current !== undefined;
 
-  // useEffect(()=>{
-  //   const getValue = async () =>{
-  //     const response = await axios.get('http://localhost:4000/fetchdata/address/'+parameter);
-  //     setUser(response.data.data.name)
-  //     const str = "Welcome "+ response.data.data.name +", how may I help you"
-  //     console.log(str)
-  //     speak(str)
-  //   }
-  //   getValue()
-  // },[])
+  // ...
+
+  useEffect(() => {
+    if (user) {
+      const welcomeMessage = `Welcome ${user?.fname}, how may I help you`;
+      const userMessage = { text: welcomeMessage, user: false };
+      setMessages([userMessage]);
+
+      // Speak the welcome message
+      speak(welcomeMessage);
+    }
+  }, [user]);
 
   const handleInputMessageChange = (e) => {
     setInputMessage(e.target.value);
@@ -42,7 +46,7 @@ const Chatbox = () => {
     setInputMessage("");
 
     try {
-      const res = await axios.post("http://localhost:4000/chat", {
+      const res = await axios.post("http://localhost:8000/chatAPI", {
         user: inputMessage,
       });
       const botResponse = res.data["bot"];
@@ -112,11 +116,11 @@ const Chatbox = () => {
     <div className="chatbot_body">
       <div className="chatbot-container">
         <div className="chatbox" ref={chatboxRef}>
-          {user ? (
+          {/* {user ? (
             <span className="message bot">Welcome, how may i help you</span>
           ) : (
             <></>
-          )}
+          )} */}
           {messages.map((message, index) => (
             <span
               key={index}

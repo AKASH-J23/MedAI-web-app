@@ -93,8 +93,8 @@ const DoctorRegister = ({ initivalValues }) => {
   };
 
   return (
+    <div><ToastContainer className="bg-gray-100"/>
     <div className="w-full mx-auto my-8 max-w-md">
-      <ToastContainer />
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4"
@@ -287,6 +287,7 @@ const DoctorRegister = ({ initivalValues }) => {
       <p className="text-center text-gray-500 text-xs">
         &copy;2024 Alpha Developers. All rights reserved.
       </p>
+    </div>
     </div>
   );
 };

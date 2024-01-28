@@ -222,7 +222,7 @@ const Login = () => {
       <p className="text-center text-gray-500 text-xs">
         &copy;2024 Alpha Developers. All rights reserved.
       </p>
-      <ToastContainer />
+      <ToastContainer className="bg-gray-100" />
     </div>
   );
 };

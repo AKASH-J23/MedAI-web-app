@@ -74,6 +74,10 @@ const Chatbox = () => {
   const handleSpeechRecognition = () => {
     if (isSpeechRecognitionAvailable) {
       const recognitionInstance = new recognition.current();
+
+      recognitionInstance.lang = 'ta-IN';
+      //'te-IN' ; 'hi-IN'; 'ml-IN';
+
       recognitionInstance.onresult = (event) => {
         const spokenText = event.results[0][0].transcript;
         setInputMessage((prevInput) => prevInput + " " + spokenText);

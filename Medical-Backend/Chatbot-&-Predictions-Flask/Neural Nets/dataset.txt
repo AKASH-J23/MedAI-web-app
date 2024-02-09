@@ -1,0 +1,19 @@
+#used datasets
+https://www.kaggle.com/datasets/priya1543/image-processing?select=train-20230326T152931Z-001
+
+#structure of datasets
+ -> datasets -> pneumonia   -> train
+                            -> test
+                            -> validate
+             -> cardimegaly -> train
+                            -> test
+                            -> validate
+             -> covid       -> train
+                            -> test
+                            -> validate
+             -> tuberculosis-> train
+                            -> test
+                            -> validate
+             -> pneumothorax-> train
+                            -> test
+                            -> validate

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 const Chatbox = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
+  const [inputLanguage, setInputLanguage] = useState("en-US");
   // const [user, setUser] = useState("");
   const [listening, setListening] = useState(false); // Track listening state
   const chatboxRef = useRef(null);
@@ -75,8 +76,10 @@ const Chatbox = () => {
     if (isSpeechRecognitionAvailable) {
       const recognitionInstance = new recognition.current();
 
-      recognitionInstance.lang = 'ta-IN';
-      //'te-IN' ; 'hi-IN'; 'ml-IN';
+      recognitionInstance.lang =  inputLanguage;
+      //   "te-IN." "ml-IN" "ja-JP" en-US
+      recognitionInstance.continuous = true;
+      // recognitionInstance.interimResults = true;
 
       recognitionInstance.onresult = (event) => {
         const spokenText = event.results[0][0].transcript;
@@ -111,6 +114,11 @@ const Chatbox = () => {
     synthesis.current.speak(utterance);
   };
 
+  const changeLangaugae = (e) => {
+    const value = e.target.value;
+    setInputLanguage(value);
+  }
+
   useEffect(() => {
     // Scroll to the bottom of the chatbox when new messages are added
     chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight;
@@ -135,6 +143,14 @@ const Chatbox = () => {
           ))}
         </div>
         <div className="input-container">
+          <select className="selection-button" onChange={changeLangaugae}>
+          <option value="en-US" >English</option>
+            <option value="ta-IN">Tamil</option>
+            <option value="te-IN">Telugu</option>
+            <option value="hi-IN">Hindi</option>
+            <option value="ml-IN">Malayalam</option>
+            
+          </select>
           <input
             type="text"
             placeholder="Type your message..."

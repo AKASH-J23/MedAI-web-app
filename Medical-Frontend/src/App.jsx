@@ -10,7 +10,6 @@ import Notifications from "./pages/Notifications";
 import PublicRoute from "./Components/Pub&Pro.routes/publicRoute";
 import ProtectedRoute from "./Components/Pub&Pro.routes/ProtectedRoute";
 import { useSelector } from "react-redux";
-import About from "./pages/About";
 import DoctorRegister from "./pages/Doctor.register";
 import DoctorsList from "./pages/Admin/DoctorsList";
 import UsersList from "./pages/Admin/UserList";
@@ -18,6 +17,10 @@ import Approveddocs from "./pages/Approved.docs";
 import BookAppointment from "./pages/BookAppointment";
 import Appointments from "./pages/Appointments";
 import DoctorAppointment from "./pages/DoctorAppointment";
+import Diabetes from "./pages/Diabetes-pred";
+import HeartDisease from "./pages/Heart-disease-pred";
+import Pneumonia from "./pages/Pneumonia-pred";
+import Tuberculosis from "./pages/Tuberculosis";
 import { SpinnerCircular } from "spinners-react";
 
 function App() {
@@ -25,7 +28,7 @@ function App() {
   return (
     <div className="outer">
       {loading && (
-        <div class="flex justify-center items-center bg-black bg-opacity-70 fixed top-0 left-0 w-full h-full z-50">
+        <div className="flex justify-center items-center bg-black bg-opacity-70 fixed top-0 left-0 w-full h-full z-50">
           <SpinnerCircular />
         </div> 
       )}
@@ -43,6 +46,7 @@ function App() {
         />
         <Route
           path="/doctor/appointments"
+          exact
           element={
             <ProtectedRoute>
               <DoctorAppointment />
@@ -69,6 +73,7 @@ function App() {
         />
         <Route
           path="/admin/doctorslist"
+          exact
           element={
             <ProtectedRoute>
               <DoctorsList />
@@ -77,6 +82,7 @@ function App() {
         />
         <Route
           path="/admin/userslist"
+          exact
           element={
             <ProtectedRoute>
               <UsersList />
@@ -124,7 +130,7 @@ function App() {
           exact
           element={
             <ProtectedRoute>
-              <About />
+              <Services />
             </ProtectedRoute>
           }
         />
@@ -143,6 +149,42 @@ function App() {
           element={
             <ProtectedRoute>
               <Notifications />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/diabetes-prediction"
+          exact
+          element={
+            <ProtectedRoute>
+              <Diabetes />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/heart-disease-prediction"
+          exact
+          element={
+            <ProtectedRoute>
+              <HeartDisease />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/pneumonia-prediction"
+          exact
+          element={
+            <ProtectedRoute>
+              <Pneumonia />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/tuberculosis-prediction"
+          exact
+          element={
+            <ProtectedRoute>
+              <Tuberculosis />
             </ProtectedRoute>
           }
         />

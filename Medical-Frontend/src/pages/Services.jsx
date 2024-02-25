@@ -4,8 +4,9 @@ import Chatbot from "../assets/chatbot.webp";
 import Appt from "../assets/appointment.webp";
 import Diabetes from "../assets/diabetes.webp";
 import Heart from "../assets/hdpred.webp";
-import Stroke from "../assets/stroke.webp";
-import Contact from "../assets/contact-us.webp";
+import Tuber from "../assets/tuberculosis.webp";
+import Pneumonia from "../assets/pneumonia.webp";
+import Doc from "../assets/doc.webp";
 import { useSelector } from "react-redux";
 
 const Services = () => {
@@ -51,6 +52,7 @@ const Services = () => {
         title="Diabetes prediction"
         content="Diabetes prediction page"
         button="Click here"
+        route="/diabetes-prediction"
       />
 
       <Servicecard
@@ -59,20 +61,31 @@ const Services = () => {
         title="Heart prediction"
         content="Heart prediction page"
         button="Click here"
+        route="/heart-disease-prediction"
       />
 
       <Servicecard
-        src={Stroke}
-        alt="Stroke prediction page"
-        title="Stroke Risk prediction"
-        content="Stroke risk prediction page"
+        src={Pneumonia}
+        alt="Pneumonia disease prediction"
+        title="Pneumonia disease prediction"
+        content="Pneumonia disease prediction page"
         button="Click here"
+        route="/pneumonia-prediction"
+      />
+      
+      <Servicecard
+        src={Tuber}
+        alt="Tuberculosis prediction"
+        title="Tuberculosis prediction"
+        content="Tuberculosis prediction page"
+        button="Click here"
+        route="/tuberculosis-prediction"
       />
 
       {!isUserDoctor && (
         // Render the Apply Doctor card if the user is not a doctor
         <Servicecard
-          src={Contact}
+          src={Doc}
           alt="Apply Doctor"
           title="Apply Doctor"
           content="Apply for Doctor"

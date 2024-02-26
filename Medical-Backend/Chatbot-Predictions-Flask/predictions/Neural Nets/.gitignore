@@ -1,1 +1,3 @@
-# /Models
+/Models/pneumonia/sequential-pneumonia.h5
+/Models/pneumonia/vgg16pneumonia.h5
+/Models/tuberculosis/normal-tuberculosis.h5

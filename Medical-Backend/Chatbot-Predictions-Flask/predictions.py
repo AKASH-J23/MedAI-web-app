@@ -53,9 +53,9 @@ def Heart(input_data):
     prediction = model.predict(input_data)
     print(prediction)
     if prediction[0] == 0:
-        return("The Person does not have Heart disease")
+        return 0
     else:
-        return("The Person have Heart disease")
+        return 1
 
 # X------------------------------------------------------------------------------------X
 def Pneumonia():

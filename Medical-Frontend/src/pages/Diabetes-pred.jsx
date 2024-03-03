@@ -41,7 +41,7 @@ const DiabetesForm = () => {
       dispatch(showLoading());
 
       // Convert gender to 0 or 1
-      const genderValue = formData.gender.toLowerCase() === "male" ? 0 : 1;
+      const genderValue = formData.gender.toLowerCase() === "male" ? 1 : 0;
 
       // Create an array with the data in the desired order
       const orderedDataArray = [

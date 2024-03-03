@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from medAPI import getAPI_Bot
 from predictions import Diabetes, Heart
@@ -25,31 +25,24 @@ def chatAPI():
 def diabetes_predict():
     try:
         data = request.get_json()
-        input_data = [
-            data['age'],
-            data['gender'],
-            data['polyuria'],
-            data['polydipsia'],
-            data['sudden_weight_loss'],
-            data['weakness'],
-            data['polyphagia'],
-            data['genital_thrush'],
-            data['visual_blurring'],
-            data['irritability'],
-            data['partial_paresis'],
-            data['alopecia']
-        ]
+        
+        # Access 'data' key to get the list
+        input_data = data.get('data', [])
+        
+        # Handle the case where 'data' key is missing or is not a list
+        if not isinstance(input_data, list) or len(input_data) != 12:
+            return jsonify({"error": "Invalid data format"}), 400
+
         # Convert the input data to a NumPy array
         input_array = [float(feature) for feature in input_data]
         input_array = [input_array]
+        
         # Call the Diabetes function to get the prediction
         result = Diabetes(input_array)
-        # print("prediction:", result)
-        return (result)
-
+        return jsonify({'success': True, 'message': 'Prediction successful', 'prediction': result})
+    
     except Exception as e:
-        print('error', str(e))
-        return(str(e))
+        return jsonify({'success': False, 'message': 'Prediction failed', 'error': str(e)})
     
 @app.route("/heart-disease-prediction", methods=['POST'])
 def heart_predict():

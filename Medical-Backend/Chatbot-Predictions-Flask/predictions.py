@@ -16,7 +16,7 @@ import pickle
 # X------------------------------------------------------------------------------------X
 diabetes_model_path = r"predictions\Machine Learning\models\diabetes-dt-model.pkl"
 heart_model_path = r"predictions\Machine Learning\models\heart-rf-model.pkl"
-# pneumonia_model_path = r"predictions\Neural Nets\Models\pneumonia\resnet-pneumonia.h5"
+pneumonia_model_path = r"predictions\Neural Nets\Models\pneumonia\resnet-pneumonia.h5"
 predictions_path = os.path.abspath(__file__)
 # print("predictions.py file location:", predictions_path)
 
@@ -35,13 +35,12 @@ def Diabetes(input_data):
     prediction = model.predict(input_data)
     print(prediction)
     if prediction[0] == 0:
-        return("The Person does not have diabetes")
+        return 0
     else:
-        return("The Person have diabetes")
+        return 1
 
 # X------------------------------------------------------------------------------------X
 def Heart(input_data):
-    # Assuming 'predictions.py' is in 'Chatbot-Predictions-Flask' directory
     with open(os.path.join(os.path.dirname(predictions_path), heart_model_path), 'rb') as file:
         model = pickle.load(file)
         print("Heart Model Loaded")
@@ -59,28 +58,28 @@ def Heart(input_data):
         return("The Person have Heart disease")
 
 # X------------------------------------------------------------------------------------X
-# def Pneumonia():
-#     new_image_path = r"C:\Users\AKASH J\Desktop\testing\pneumonia\Testing-Data\Normal-Sample-XRay\NORMAL  (4).jpeg"
-#     # with open(os.path.join(os.path.dirname(predictions_path), pneumonia_model_path), 'rb') as file:
-#     pneumonia_model_path = r"C:\Users\AKASH J\Desktop\MedAPP\Medical-Backend\Chatbot-Predictions-Flask\predictions\Neural Nets\Models\pneumonia"
-#     # model = TFSMLayer(pneumonia_model_path, call_endpoint='serving_default')
-#     print("Pneumonia model loaded")
+def Pneumonia():
+    new_image_path = r"C:\Users\AKASH J\Desktop\testing\pneumonia\Testing-Data\Normal-Sample-XRay\NORMAL  (4).jpeg"
+    # with open(os.path.join(os.path.dirname(predictions_path), pneumonia_model_path), 'rb') as file:
+    # pneumonia_model_path = r"C:\Users\AKASH J\Desktop\MedAPP\Medical-Backend\Chatbot-Predictions-Flask\predictions\Neural Nets\Models\pneumonia"
+    # model = TFSMLayer(pneumonia_model_path, call_endpoint='serving_default')
+    print("Pneumonia model loaded")
 
-#     try:
-#         # Load and preprocess the image
-#         img = image.load_img(new_image_path, target_size=(224,224))
-#         img_array = image.img_to_array(img)
-#         img_array = np.expand_dims(img_array, axis=0)
-#         img_array /= 255.0  # Normalize pixel values
+    try:
+        # Load and preprocess the image
+        img = image.load_img(new_image_path, target_size=(224,224))
+        img_array = image.img_to_array(img)
+        img_array = np.expand_dims(img_array, axis=0)
+        img_array /= 255.0  # Normalize pixel values
 
-#         # Make predictions
-#         predictions = model.predict(img_array)
+        # Make predictions
+        predictions = model.predict(img_array)
 
-#         # Interpret the result
-#         prediction_result = "PNEUMONIA" if predictions[0, 0] > 0.5 else "NORMAL"
-#         print("Prediction Result:", prediction_result)
+        # Interpret the result
+        prediction_result = "PNEUMONIA" if predictions[0, 0] > 0.5 else "NORMAL"
+        print("Prediction Result:", prediction_result)
 
-#     except Exception as e:
-#         print("Error:", str(e))
+    except Exception as e:
+        print("Error:", str(e))
 
 # Pneumonia()        

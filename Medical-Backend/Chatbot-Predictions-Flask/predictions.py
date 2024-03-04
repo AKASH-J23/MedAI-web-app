@@ -10,6 +10,7 @@ import tensorflow
 from tensorflow.keras.preprocessing import image
 from keras.models import load_model
 import pickle
+from PIL import Image
 
 
 # X------------------------------------------------------------------------------------X
@@ -60,29 +61,22 @@ def Heart(input_data):
 
 # X------------------------------------------------------------------------------------X
 
-def Tuberculosis(file):
+def Tuberculosis(img_array):
     try:
         model = load_model(tuberculosis_model_path)
         print("Tuberculosis model Loaded !")
-        img = image.load_img(file, target_size=(300, 300))
-        img = image.img_to_array(img)
-        img = np.expand_dims(img, axis=0)
-        img = img / 255
-
-        result = model.predict(img)
+        result = model.predict(img_array)
         op = result[0, 0]
+        print(op)
 
         if op > 0.5:
-            # return True  
-            print("Tuberculosis")
-            # PNEUMONIA
+            return 1
         else:
-            print("No disease")
-            # return False  # NORMAL
+            return 0
     except Exception as e:
         print("Error during prediction:", e)
         return False
-
+    
 img_path = r"C:\Users\AKASH J\Desktop\testing\pneumonia\Testing-Data\Normal-Sample-XRay\NORMAL  (4).jpeg"
 # Tuberculosis(img_path)  
 

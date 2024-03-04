@@ -7,7 +7,6 @@ import warnings
 warnings.filterwarnings("ignore", category=UserWarning)
 import cv2
 import tensorflow 
-from tensorflow.keras.preprocessing.image import array_to_img, img_to_array, load_img
 from tensorflow.keras.preprocessing import image
 from keras.models import load_model
 import pickle
@@ -16,7 +15,9 @@ import pickle
 # X------------------------------------------------------------------------------------X
 diabetes_model_path = r"predictions\Machine Learning\models\diabetes-dt-model.pkl"
 heart_model_path = r"predictions\Machine Learning\models\heart-rf-model.pkl"
-pneumonia_model_path = r"predictions\Neural Nets\Models\pneumonia\resnet-pneumonia.h5"
+# pneumonia_model_path = r"C:\Users\AKASH J\Desktop\MedAPP\Medical-Backend\Chatbot-Predictions-Flask\predictions\Neural Nets\Models\pneumonia\resnet-pneumonia.h5"
+pneumonia_model_path=r"C:\Users\AKASH J\Desktop\Unused models medapp\pneumonia\sequential-pneumonia.h5"
+tuberculosis_model_path = r"C:\Users\AKASH J\Desktop\MedAPP\Medical-Backend\Chatbot-Predictions-Flask\predictions\Neural Nets\Models\tuberculosis\tuberculosis-inceptionv3.h5"
 predictions_path = os.path.abspath(__file__)
 # print("predictions.py file location:", predictions_path)
 
@@ -58,28 +59,56 @@ def Heart(input_data):
         return 1
 
 # X------------------------------------------------------------------------------------X
-def Pneumonia():
-    new_image_path = r"C:\Users\AKASH J\Desktop\testing\pneumonia\Testing-Data\Normal-Sample-XRay\NORMAL  (4).jpeg"
-    # with open(os.path.join(os.path.dirname(predictions_path), pneumonia_model_path), 'rb') as file:
-    # pneumonia_model_path = r"C:\Users\AKASH J\Desktop\MedAPP\Medical-Backend\Chatbot-Predictions-Flask\predictions\Neural Nets\Models\pneumonia"
-    # model = TFSMLayer(pneumonia_model_path, call_endpoint='serving_default')
-    print("Pneumonia model loaded")
 
+def Tuberculosis(file):
     try:
-        # Load and preprocess the image
-        img = image.load_img(new_image_path, target_size=(224,224))
-        img_array = image.img_to_array(img)
-        img_array = np.expand_dims(img_array, axis=0)
-        img_array /= 255.0  # Normalize pixel values
+        model = load_model(tuberculosis_model_path)
+        print("Tuberculosis model Loaded !")
+        img = image.load_img(file, target_size=(300, 300))
+        img = image.img_to_array(img)
+        img = np.expand_dims(img, axis=0)
+        img = img / 255
 
-        # Make predictions
-        predictions = model.predict(img_array)
+        result = model.predict(img)
+        op = result[0, 0]
 
-        # Interpret the result
-        prediction_result = "PNEUMONIA" if predictions[0, 0] > 0.5 else "NORMAL"
-        print("Prediction Result:", prediction_result)
-
+        if op > 0.5:
+            # return True  
+            print("Tuberculosis")
+            # PNEUMONIA
+        else:
+            print("No disease")
+            # return False  # NORMAL
     except Exception as e:
-        print("Error:", str(e))
+        print("Error during prediction:", e)
+        return False
 
-# Pneumonia()        
+img_path = r"C:\Users\AKASH J\Desktop\testing\pneumonia\Testing-Data\Normal-Sample-XRay\NORMAL  (4).jpeg"
+# Tuberculosis(img_path)  
+
+# X------------------------------------------------------------------------------------X      
+
+def Pneumonia(file):
+    try:
+        model = load_model(pneumonia_model_path)
+        print("Pneumonia model Loaded !")
+        img = image.load_img(file, target_size=(224, 224))
+        img = image.img_to_array(img)
+        img = np.expand_dims(img, axis=0)
+        img = img / 255
+
+        result = model.predict(img)
+        op = result[0, 0]
+
+        if op > 0.5:
+            # return True  
+            print("Pneumonia")
+            # PNEUMONIA
+        else:
+            print("No disease")
+            # return False  # NORMAL
+    except Exception as e:
+        print("Error during prediction:", e)
+        return False
+
+Pneumonia(img_path)

@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from medAPI import getAPI_Bot
-from predictions import Diabetes, Heart
+from predictions import Diabetes, Heart, Tuberculosis, Pneumonia
 
 app = Flask(__name__)
 CORS(app)
@@ -64,6 +64,16 @@ def heart_predict():
     
     except Exception as e:
         return jsonify({'success': False, 'message': 'Prediction failed', 'error': str(e)})
+    
+@app.route("/tuberculosis-prediction", methods=['POST'])
+def tuber_predict():
+    try:
+        data = request.get_data
+        result = Tuberculosis(data)
+        print(result)
+        return result 
+    except Exception as e:
+        return (e)
     
 if __name__ == "__main__":
     app.run(host="localhost",port = 8000, debug = True)

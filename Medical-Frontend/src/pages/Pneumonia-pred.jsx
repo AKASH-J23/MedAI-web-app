@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { showLoading, hideLoading } from '../redux/alertsSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Pneumonia() {
+  const dispatch = useDispatch();
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (e) => {
@@ -20,6 +25,7 @@ function Pneumonia() {
     formData.append('image', selectedFile);
 
     try {
+      dispatch(showLoading());
       const response = await fetch('http://127.0.0.1:8000/pneumonia-prediction', {
         method: 'POST',
         body: formData,
@@ -27,16 +33,40 @@ function Pneumonia() {
           Authorization: `Bearer ${localStorage.getItem("token")}`
         },
       });
+      dispatch(hideLoading());
 
-      // Handle the response as needed
-      console.log(response);
-    } catch (error) {
-      console.error('Error uploading file:', error);
+      if (response.ok) {
+        const result = await response.json(); // Extract JSON data
+        console.log(result);
+
+        // Now you can use the JSON data for further processing
+        if (result.success === true) {
+          const predictionResult = result.prediction;
+
+          if (predictionResult === 1.0) {
+            toast.error('Prediction successful! Tuberculosis detected.');
+            // Perform actions or navigate based on the prediction
+          } else {
+            toast.success('Prediction successful! No Tuberculosis detected.');
+            // Perform actions or navigate based on the prediction
+          }
+        } else {
+          console.log('Prediction failed:', result.message);
+          toast.error('Prediction failed!');
+        }
+      } else {
+        console.error('Request failed with status:', response.status);
+      }
+    } catch (err) {
+      dispatch(hideLoading());
+      console.error('Error:', err.message);
+      toast.error('Something went wrong');
     }
   };
 
   return (
     <div>
+    <ToastContainer className="bg-gray-100" />
     <div className="text-center my-2 text-xl text-gray-800 font-bold pt-4 ">
           Pneumonia Prediction
         </div>

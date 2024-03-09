@@ -2,13 +2,9 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from medAPI import getAPI_Bot
 from predictions import Diabetes, Heart, Tuberculosis, Pneumonia
-import traceback
-import logging
-from werkzeug.utils import secure_filename
 import os
 from PIL import Image
 import numpy as np
-import io
 from tensorflow.keras.preprocessing import image
 
 app = Flask(__name__)
@@ -110,8 +106,6 @@ def tuber_predict():
 @app.route("/pneumonia-prediction", methods=['POST'])
 def pneumonia_predict():
     try:
-        # Assuming the Tuberculosis class has a method named 'predict' for making predictions
-        # Also assuming you are sending an image file in the 'image' field of the form data
         if 'image' not in request.files:
             return jsonify({'error': 'No image file provided'}), 400
 
@@ -120,14 +114,28 @@ def pneumonia_predict():
         if image_file.filename == '':
             return jsonify({'error': 'No selected file'}), 400
 
-        # Make predictions using your Tuberculosis model
-        result = Pneumonia.predict(image_file)
+        # Read image file and convert it to RGB format
+        img = Image.open(image_file)
+        img_d = img.resize((224,224))
+  # we resize the image for the model
+        rgbimg=None
+  #We check if image is RGB or not
+        if len(np.array(img_d).shape)<3:
+            rgbimg = Image.new("RGB", img_d.size)
+            rgbimg.paste(img_d)
+        else:
+            rgbimg = img_d
+        rgbimg = np.array(rgbimg,dtype=np.float64)
+        rgbimg = rgbimg.reshape((1,224,224,3))
+        # predictions = model.predict(rgbimg)
+# Make predictions using your Pneumonia model (replace 'Pneumonia' with your actual model)
+        result = Pneumonia(rgbimg)
 
         # Assuming 'result' is a dictionary containing prediction results
-        return jsonify({'success': True, 'prediction': result})
+        return jsonify({'success': True, 'message': 'Prediction successful', 'prediction': result})
 
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'success': False, 'message': 'Prediction failed', 'error': str(e)})
     
 if __name__ == "__main__":
     app.run(host="localhost",port = 8000, debug = True)

@@ -8,8 +8,7 @@ const Chatbox = () => {
   const [messages, setMessages] = useState([]);
   const [inputMessage, setInputMessage] = useState("");
   const [inputLanguage, setInputLanguage] = useState("en-US");
-  // const [user, setUser] = useState("");
-  const [listening, setListening] = useState(false); // Track listening state
+  const [listening, setListening] = useState(false);
   const chatboxRef = useRef(null);
   const recognition = useRef(
     window.SpeechRecognition || window.webkitSpeechRecognition
@@ -19,10 +18,7 @@ const Chatbox = () => {
 
   const { parameter } = useParams();
 
-  // Check if speech recognition is available
   const isSpeechRecognitionAvailable = recognition.current !== undefined;
-
-  // ...
 
   useEffect(() => {
     if (user) {
@@ -30,7 +26,6 @@ const Chatbox = () => {
       const userMessage = { text: welcomeMessage, user: false };
       setMessages([userMessage]);
 
-      // Speak the welcome message
       speak(welcomeMessage);
     }
   }, [user]);
@@ -52,14 +47,12 @@ const Chatbox = () => {
       });
       const botResponse = res.data["bot"];
 
-      // Delay the bot response to simulate typing
       const delayBotResponse = (botResponse) => {
         const botMessage = { text: botResponse, user: false };
         setMessages((prevMessages) => [...prevMessages, botMessage]);
         speak(botResponse);
       };
 
-      // Simulate a typing delay before the bot response
       setTimeout(() => delayBotResponse(botResponse), 1000);
     } catch (error) {
       console.error("Error fetching bot response:", error);
@@ -76,31 +69,24 @@ const Chatbox = () => {
     if (isSpeechRecognitionAvailable) {
       const recognitionInstance = new recognition.current();
 
-      recognitionInstance.lang =  inputLanguage;
-      //   "te-IN." "ml-IN" "ja-JP" en-US
+      recognitionInstance.lang = inputLanguage;
       recognitionInstance.continuous = true;
-      // recognitionInstance.interimResults = true;
 
       recognitionInstance.onresult = (event) => {
         const spokenText = event.results[0][0].transcript;
         setInputMessage((prevInput) => prevInput + " " + spokenText);
 
-        // Check if spokenText contains "Send the message"
         if (spokenText.toLowerCase().includes("send the message")) {
-          // Automatically submit the message
           handleSubmitMessage();
         }
 
         recognitionInstance.stop();
 
-        // Toggle listening state and update the button text
         setListening(false);
       };
 
-      // Toggle listening state and update the button text
       setListening((prevState) => !prevState);
 
-      // Start or stop recognition based on listening state
       if (!listening) {
         recognitionInstance.start();
       } else {
@@ -117,7 +103,7 @@ const Chatbox = () => {
   const changeLangaugae = (e) => {
     const value = e.target.value;
     setInputLanguage(value);
-  }
+  };
 
   useEffect(() => {
     // Scroll to the bottom of the chatbox when new messages are added
@@ -144,12 +130,11 @@ const Chatbox = () => {
         </div>
         <div className="input-container">
           <select className="selection-button" onChange={changeLangaugae}>
-          <option value="en-US" >English</option>
+            <option value="en-US">English</option>
             <option value="ta-IN">Tamil</option>
             <option value="te-IN">Telugu</option>
             <option value="hi-IN">Hindi</option>
             <option value="ml-IN">Malayalam</option>
-            
           </select>
           <input
             type="text"

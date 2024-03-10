@@ -2,37 +2,12 @@ const express = require("express");
 const router = express.Router();
 const Doctor = require("../models/doctorModel");
 const jwt = require("jsonwebtoken");
-const authMiddleware = require("../middleware/authMiddleware");
+const AuthMiddleware = require("../middleware/authMiddleware");
 const bcrypt = require("bcryptjs");
 const Appointment = require("../models/appointmentModel");
 const User = require("../models/userModel");
 
-// router.post("/doc-register", async (req, res) => {
-//   try {
-//     const userExists = await Doctor.findOne({ email: req.body.email });
-//     if (userExists) {
-//       return res
-//         .status(200)
-//         .send({ message: "User already exists", success: false });
-//     }
-//     const password = req.body.password;
-//     const salt = await bcrypt.genSalt(10);
-//     const hashedPassword = await bcrypt.hash(password, salt);
-//     req.body.password = hashedPassword;
-//     const newuser = new Doctor(req.body);
-//     await newuser.save();
-//     res
-//       .status(200)
-//       .send({ message: "User created successfully", success: true });
-//   } catch (error) {
-//     console.log(error);
-//     res
-//       .status(500)
-//       .send({ message: "Error creating user", success: false, error });
-//   }
-// });
-
-router.post("/get-doc-info-by-user-id", authMiddleware, async (req, res) => {
+router.post("/get-doc-info-by-user-id", AuthMiddleware, async (req, res) => {
   try {
     const doctor = await Doctor.findOne({ userId: req.body.userId });
     res.status(200).send({
@@ -47,7 +22,7 @@ router.post("/get-doc-info-by-user-id", authMiddleware, async (req, res) => {
   }
 });
 
-router.post("/get-doctor-info-by-id", authMiddleware, async (req, res) => {
+router.post("/get-doctor-info-by-id", AuthMiddleware, async (req, res) => {
   try {
     const doctor = await Doctor.findOne({ _id: req.body.doctorId });
     res.status(200).send({
@@ -62,7 +37,7 @@ router.post("/get-doctor-info-by-id", authMiddleware, async (req, res) => {
   }
 });
 
-router.post("/update-doctor-profile", authMiddleware, async (req, res) => {
+router.post("/update-doctor-profile", AuthMiddleware, async (req, res) => {
   try {
     const doctor = await Doctor.findOneAndUpdate(
       { userId: req.body.userId },
@@ -82,7 +57,7 @@ router.post("/update-doctor-profile", authMiddleware, async (req, res) => {
 
 router.get(
   "/get-appointments-by-doctor-id",
-  authMiddleware,
+  AuthMiddleware,
   async (req, res) => {
     try {
       const doctor = await Doctor.findOne({ userId: req.body.userId });
@@ -103,7 +78,7 @@ router.get(
   }
 );
 
-router.post("/change-appointment-status", authMiddleware, async (req, res) => {
+router.post("/change-appointment-status", AuthMiddleware, async (req, res) => {
   try {
     const { appointmentId, status } = req.body;
     const appointment = await Appointment.findByIdAndUpdate(appointmentId, {
@@ -122,7 +97,7 @@ router.post("/change-appointment-status", authMiddleware, async (req, res) => {
 
     res.status(200).send({
       message: "Appointment status updated successfully",
-      success: true
+      success: true,
     });
   } catch (error) {
     console.log(error);

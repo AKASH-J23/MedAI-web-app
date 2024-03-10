@@ -69,10 +69,8 @@ const HeartDiseaseForm = () => {
 
         if (predictionResult === 0) {
           toast.success("Prediction successful! No heart disease detected.");
-          // Perform actions or navigate based on the prediction
         } else {
           toast.error("Prediction successful! Heart disease detected.");
-          // Perform actions or navigate based on the prediction
         }
       } else {
         console.log("Prediction failed:", response.data.message);
@@ -160,7 +158,6 @@ const HeartDiseaseForm = () => {
 
 export default HeartDiseaseForm;
 
-// Helper function to get full label based on attribute name
 function getLabel(attribute) {
   switch (attribute) {
     case "age":
@@ -226,7 +223,6 @@ function getOptions(attribute) {
   }
 }
 
-// Helper function to get numeric value based on attribute and option value
 function getNumericValue(attribute, value) {
   switch (attribute) {
     case "gender":
@@ -245,12 +241,10 @@ function getNumericValue(attribute, value) {
     case "numMajorVessels":
       return parseInt(value, 10);
     default:
-      // If the attribute is not found, return the original value
       return value;
   }
 }
 
-// Helper function to prepare form data for the API request
 function prepareDataForRequest(formData) {
   return Object.values(formData).map((value, index) => {
     const key = Object.keys(formData)[index];

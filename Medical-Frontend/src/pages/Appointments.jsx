@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../redux/alertsSlice";
-// import { toast } from "react-hot-toast";
 import axios from "axios";
 import moment from "moment";
 
@@ -27,43 +26,6 @@ function Appointments() {
       dispatch(hideLoading());
     }
   };
-  // const columns = [
-  //   {
-  //       title: "Id",
-  //       dataIndex: "_id",
-  //   },
-  //   {
-  //     title: "Doctor",
-  //     dataIndex: "name",
-  //     render: (text, record) => (
-  //       <span>
-  //         {record.doctorInfo.fname} {record.doctorInfo.lname}
-  //       </span>
-  //     ),
-  //   },
-  //   {
-  //     title: "Phone",
-  //     dataIndex: "phoneNumber",
-  //     render: (text, record) => (
-  //       <span>
-  //         {record.doctorInfo.contact_no}
-  //       </span>
-  //     ),
-  //   },
-  //   {
-  //     title: "Date & Time",
-  //     dataIndex: "createdAt",
-  //     render: (text, record) => (
-  //       <span>
-  //         {moment(record.date).format("DD-MM-YYYY")} {moment(record.time).format("HH:mm")}
-  //       </span>
-  //     ),
-  //   },
-  //   {
-  //       title: "Status",
-  //       dataIndex: "status",
-  //   }
-  // ];
 
   const formatDateAndTime = (date, time) => {
     return `${moment(date).format("DD-MM-YYYY")} ${moment(time).format(
@@ -80,7 +42,6 @@ function Appointments() {
       <div className="text-xl font-bold flex justify-center my-2">
         Appointments
       </div>
-      {/* <hr className="border-gray-500 rounded border-2" /> */}
 
       <div className="overflow-x-auto p-2">
         <table className="min-w-full bg-black border border-black ">

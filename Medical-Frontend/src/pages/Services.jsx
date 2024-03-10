@@ -25,7 +25,6 @@ const Services = () => {
       />
 
       {user && user.isDoctor !== true ? (
-        // Render the Appointments card if the user is not a doctor
         <Servicecard
           src={Appt}
           alt="Doctor Appointment Booking page"
@@ -35,7 +34,6 @@ const Services = () => {
           route="/approved-doctors"
         />
       ) : (
-        // Render the my Appointment Booking card if the user is a doctor
         <Servicecard
           src={Appt}
           alt="Appointments page"
@@ -72,7 +70,7 @@ const Services = () => {
         button="Click here"
         route="/pneumonia-prediction"
       />
-      
+
       <Servicecard
         src={Tuber}
         alt="Tuberculosis prediction"
@@ -83,7 +81,6 @@ const Services = () => {
       />
 
       {!isUserDoctor && (
-        // Render the Apply Doctor card if the user is not a doctor
         <Servicecard
           src={Doc}
           alt="Apply Doctor"

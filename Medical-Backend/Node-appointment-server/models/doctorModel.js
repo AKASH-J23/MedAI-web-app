@@ -13,30 +13,30 @@ const doctorSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    speciality:{
+    speciality: {
       type: String,
-      required: true
+      required: true,
     },
-    consultation_fee:{
+    consultation_fee: {
       type: Number,
-      required: true
+      required: true,
     },
-    availability:{
+    availability: {
       type: Array,
-      required: true
+      required: true,
     },
     contact_no: {
       type: Number,
-      required: true
+      required: true,
     },
     email: {
       type: String,
-      required: true
+      required: true,
     },
     status: {
       type: String,
       default: "pending",
-    }
+    },
   },
   {
     timestamps: true,

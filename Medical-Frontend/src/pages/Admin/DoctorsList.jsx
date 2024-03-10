@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { showLoading, hideLoading } from "../../redux/alertsSlice";
-// import { toast } from "react-hot-toast";
 import axios from "axios";
 import moment from "moment";
 

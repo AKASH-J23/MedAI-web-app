@@ -27,16 +27,13 @@ function Notifications() {
       dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
-        // console.log(response.data.message);
         dispatch(setUser(response.data.data));
       } else {
         toast.error(response.data.message);
-        // console.log(response.data.message);
       }
     } catch (error) {
       dispatch(hideLoading());
       toast.error("Something went wrong");
-      // console.log(error);
     }
   };
 
@@ -55,16 +52,13 @@ function Notifications() {
       dispatch(hideLoading());
       if (response.data.success) {
         toast.success(response.data.message);
-        // console.log(response.data.message);
         dispatch(setUser(response.data.data));
       } else {
         toast.error(response.data.message);
-        // console.log(response.data.message);
       }
     } catch (error) {
       dispatch(hideLoading());
       toast.error("Something went wrong");
-      // console.log(error);
     }
   };
 
@@ -81,8 +75,6 @@ function Notifications() {
               Mark all as seen
             </h1>
           </div>
-          {/* <hr className='border-black'/> */}
-
           {user?.unseenNotifications.map((notification, index) => (
             <div
               key={`unseen-${index}`}
@@ -116,7 +108,7 @@ function Notifications() {
           ))}
         </Tabs.TabPane>
       </Tabs>
-      <ToastContainer className="bg-gray-100"/>
+      <ToastContainer className="bg-gray-100" />
     </div>
   );
 }

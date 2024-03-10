@@ -1,11 +1,5 @@
 from bs4 import BeautifulSoup
 import requests
-# from dotenv import load_dotenv
-import os
-# load_dotenv()
-
-# cookies = os.environ.get('COOKIES')
-# headers = os.environ.get('HEADERS')
 
 cookies = {
     '_ga': 'GA1.1.894891176.1699107406',

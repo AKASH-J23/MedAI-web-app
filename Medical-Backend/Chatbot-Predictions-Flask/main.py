@@ -29,22 +29,13 @@ def chatAPI():
 def diabetes_predict():
     try:
         data = request.get_json()
-        
-        # Access 'data' key to get the list
         input_data = data.get('data', [])
-        
-        # Handle the case where 'data' key is missing or is not a list
         if not isinstance(input_data, list) or len(input_data) != 12:
             return jsonify({"error": "Invalid data format"}), 400
-
-        # Convert the input data to a NumPy array
         input_array = [float(feature) for feature in input_data]
         input_array = [input_array]
-        
-        # Call the Diabetes function to get the prediction
         result = Diabetes(input_array)
         return jsonify({'success': True, 'message': 'Prediction successful', 'prediction': result})
-    
     except Exception as e:
         return jsonify({'success': False, 'message': 'Prediction failed', 'error': str(e)})
     
@@ -52,26 +43,19 @@ def diabetes_predict():
 def heart_predict():
     try:
         data = request.get_json()
-        # Access 'data' key to get the list
         input_data = data.get('data', [])
-        
-        # Handle the case where 'data' key is missing or is not a list
         if not isinstance(input_data, list) or len(input_data) != 13:
             return jsonify({"error": "Invalid data format"}), 400
-        
-        # Convert the input data to a NumPy array
         input_array = [float(feature) for feature in input_data]
         input_array = [input_array]
-        # Call the Diabetes function to get the prediction
         result = Heart(input_array)
         return jsonify({'success': True, 'message': 'Prediction successful', 'prediction': result})
-    
     except Exception as e:
         return jsonify({'success': False, 'message': 'Prediction failed', 'error': str(e)})
 
-# Create the 'temp' directory if it doesn't exist
-temp_directory = 'temp'
-os.makedirs(temp_directory, exist_ok=True)
+# # Create the 'temp' directory if it doesn't exist
+# temp_directory = 'temp'
+# os.makedirs(temp_directory, exist_ok=True)
 
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg', 'png'}
 
@@ -83,9 +67,7 @@ def tuber_predict():
     try:
         if 'image' not in request.files:
             return jsonify({'error': 'No image file provided'}), 400
-
         image_file = request.files['image']
-
         if image_file.filename == '' or not allowed_file(image_file.filename):
             return jsonify({'error': 'Invalid file'}), 400
 
@@ -97,9 +79,7 @@ def tuber_predict():
         img_array = np.expand_dims(img_array, axis=0)
 
         result = Tuberculosis(img_array)
-
         return jsonify({'success': True, 'message': 'Prediction successful', 'prediction': result})
-
     except Exception as e:
         return jsonify({'success': False, 'message': 'Prediction failed', 'error': str(e)})
         
@@ -108,18 +88,13 @@ def pneumonia_predict():
     try:
         if 'image' not in request.files:
             return jsonify({'error': 'No image file provided'}), 400
-
         image_file = request.files['image']
-
         if image_file.filename == '':
             return jsonify({'error': 'No selected file'}), 400
 
-        # Read image file and convert it to RGB format
         img = Image.open(image_file)
         img_d = img.resize((224,224))
-  # we resize the image for the model
         rgbimg=None
-  #We check if image is RGB or not
         if len(np.array(img_d).shape)<3:
             rgbimg = Image.new("RGB", img_d.size)
             rgbimg.paste(img_d)
@@ -127,13 +102,8 @@ def pneumonia_predict():
             rgbimg = img_d
         rgbimg = np.array(rgbimg,dtype=np.float64)
         rgbimg = rgbimg.reshape((1,224,224,3))
-        # predictions = model.predict(rgbimg)
-# Make predictions using your Pneumonia model (replace 'Pneumonia' with your actual model)
         result = Pneumonia(rgbimg)
-
-        # Assuming 'result' is a dictionary containing prediction results
         return jsonify({'success': True, 'message': 'Prediction successful', 'prediction': result})
-
     except Exception as e:
         return jsonify({'success': False, 'message': 'Prediction failed', 'error': str(e)})
     

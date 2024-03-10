@@ -4,7 +4,7 @@ const User = require("../models/userModel");
 const Doctor = require("../models/doctorModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const AuthMiddleware = require("../middleware/authMiddleWare")
+const AuthMiddleware = require("../middleware/authMiddleWare");
 const Appointment = require("../models/appointmentModel");
 const moment = require("moment");
 
@@ -218,7 +218,9 @@ router.post("/check-booking-avilability", AuthMiddleware, async (req, res) => {
     const fromTime = moment(req.body.time, "HH:mm")
       .subtract(50, "minutes")
       .toISOString();
-    const toTime = moment(req.body.time, "HH:mm").add(50, "minutes").toISOString();
+    const toTime = moment(req.body.time, "HH:mm")
+      .add(50, "minutes")
+      .toISOString();
     const doctorId = req.body.doctorId;
     const appointments = await Appointment.find({
       doctorId,
